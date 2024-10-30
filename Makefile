@@ -7,17 +7,34 @@
 #
 #====================================================================
 
-ARCH := $(shell uname -s)
+# ARCH := $(shell uname -s)
 
-ifeq ($(ARCH),Darwin)
-  CC = g++
-  CXXFLAGS = -g --std=c++17 -isystem . -isystem glfw/include -Wc++11-narrowing
-  LINKFLAGS = -L glfw/lib-macos -lglfw3 -framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo
-else
-  CC = g++
-  CXXFLAGS = -g --std=c++17 -isystem . -isystem glfw/include
-  LINKFLAGS = -L glfw/lib-win -lglfw3dll -lopengl32
-endif
+# ifeq ($(ARCH),Darwin)
+#   CC = g++
+#   CXXFLAGS = -g --std=c++17 -isystem . -isystem glfw/include -Wc++11-narrowing
+#   LINKFLAGS = -L glfw/lib-macos -lglfw3 -framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo
+# else
+#   CC = g++
+#   CXXFLAGS = -g --std=c++17 -isystem . -isystem glfw/include
+#   LINKFLAGS = -L glfw/lib-win -lglfw3dll -lopengl32
+# endif
+
+# TARGET = c8552a2
+# SRCFILES = c8552qt.cpp glad.cpp
+
+# $(TARGET): $(SRCFILES)
+# 	$(CC) $(CXXFLAGS) -o $(TARGET) $(SRCFILES) $(LINKFLAGS)
+
+# clean:
+# ifeq ($(ARCH),Darwin)
+# 	\rm -f $(TARGET)
+# else
+# 	/bin/rm -f $(TARGET).exe
+# endif
+
+CC = g++
+CXXFLAGS = -g --std=c++17 -isystem . -isystem glfw/include -Wno-narrowing
+LINKFLAGS = -L glfw/lib -lglfw3 -lopengl32 -lgdi32
 
 TARGET = c8552a2
 SRCFILES = c8552qt.cpp glad.cpp
@@ -26,9 +43,4 @@ $(TARGET): $(SRCFILES)
 	$(CC) $(CXXFLAGS) -o $(TARGET) $(SRCFILES) $(LINKFLAGS)
 
 clean:
-ifeq ($(ARCH),Darwin)
-	\rm -f $(TARGET)
-else
-	/bin/rm -f $(TARGET).exe
-endif
-
+	del /f $(TARGET).exe
