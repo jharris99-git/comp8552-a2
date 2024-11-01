@@ -128,8 +128,8 @@ private:
     int GetIndex(Rect *rect)
     {
         // Calculate midpoints of both quadtree boundary and rectangle.
-        double horizontalMidpoint = (bounds->x + bounds->width) * 0.5;
-        double verticalMidpoint = (bounds->y + bounds->height) * 0.5;
+        double horizontalMidpoint = bounds->x + (bounds->width * 0.5);
+        double verticalMidpoint = bounds->y + (bounds->height * 0.5);
 
         // Verify rect location in quadrant.
         // Returns:
@@ -137,13 +137,15 @@ private:
         // - 1 for northeast
         // - 2 for southwest
         // - 3 for southeast
-        bool inLeft = (rect->x < horizontalMidpoint);
+        bool inLeft = (rect->x + rect->width < horizontalMidpoint);
         bool inRight = (rect->x + rect->width >= horizontalMidpoint);
         bool inTop = (rect->y + rect->height >= verticalMidpoint);
         bool inBottom = (rect->y < verticalMidpoint);
 
         if (inLeft == inRight || inTop == inBottom)
+        {
             return -1;
+        }
 
         return inRight + 2 * inBottom;
     }
