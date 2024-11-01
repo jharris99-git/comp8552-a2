@@ -95,7 +95,10 @@ public:
         {
             nodes[index]->Retrieve(result, rect);
         }
-        result->insert(result->end(), objects.begin(), objects.end());
+        for (Rect* obj : objects)
+        {
+            result->push_back(obj->id); // Add the ID of the rectangle instead of the object itself
+        }
         return result;
     }
     
