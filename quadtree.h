@@ -57,6 +57,16 @@ public:
     void Clear()
     {
         //+++ Clear the objects and nodes
+        objects.clear();
+        for (auto &node : nodes)
+        {
+            if (node != nullptr)
+            {
+                node->Clear();
+                delete node;
+                node = nullptr;
+            }
+        }
     }
     
     void Insert(Rect *rect)
