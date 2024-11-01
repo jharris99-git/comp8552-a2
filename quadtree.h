@@ -72,6 +72,18 @@ public:
     void Insert(Rect *rect)
     {
         //+++ This code has to be written to insert a new Rect object into the tree
+        if (!nodes[0] && objects.size() >= MAX_OBJECTS && level < MAX_LEVELS)
+            Split();
+
+        int index = GetIndex(rect);
+        if (index != -1 && nodes[0] != nullptr) 
+        {
+            nodes[index]->Insert(rect);
+        }
+        else 
+        {
+            objects.push_back(rect);
+        }
     }
     
     std::vector<int> *Retrieve(std::vector<int> *result, Rect *rect)
