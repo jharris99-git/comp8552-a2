@@ -90,6 +90,12 @@ public:
     {
         //+++ This code has to be written to retrieve all the rectangles
         //+++ that are in the same node in the quadtree as rect
+        int index = GetIndex(rect);
+        if (index != -1 && nodes[0] != nullptr)
+        {
+            nodes[index]->Retrieve(result, rect);
+        }
+        result->insert(result->end(), objects.begin(), objects.end());
         return result;
     }
     
