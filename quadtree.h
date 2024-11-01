@@ -81,7 +81,7 @@ public:
             nodes[index]->Insert(rect);
         }
         else 
-        {
+        { 
             objects.push_back(rect);
         }
     }
