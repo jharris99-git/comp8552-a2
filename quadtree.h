@@ -481,7 +481,10 @@ private:
     bool IsCollided(Rect* r1, Rect* r2)
     {
         ////+++  Implement this function to test if rectangles r1 and r2 have collided
-        return false;
+        return (r1->x < r2->x + r2->width &&
+            r1->x + r1->width > r2->x &&
+            r1->y < r2->y + r2->height &&
+            r1->y + r1->height > r2->y);
     }
 
 };
