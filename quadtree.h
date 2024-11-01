@@ -319,6 +319,16 @@ public:
                 //+++ collision has happened and set the collided
                 //+++ flag of the rectangles that have collided
                 //+++ as needed.
+                quad->Retrieve(&closeBy, *it);
+                for (auto id : closeBy)
+                {
+                    Rect* otherRect = rects[id];
+                    if ((*it)->id != otherRect->id && IsCollided(*it, otherRect))
+                    {
+                        (*it)->collided = true;
+                        otherRect->collided = true;
+                    }
+                }
             } else {
                 for (vector<Rect*>::iterator it2 = rects.begin(); it2 != rects.end(); ++it2)
                 {
