@@ -105,6 +105,15 @@ private:
     void Split()
     {
         //+++ This code has to be written to split a node
+        float subWidth = bounds->width / 2.0f;
+        float subHeight = bounds->height / 2.0f;
+        float x = bounds->x;
+        float y = bounds->y;
+
+        nodes[0] = new QuadTree(level + 1, new Rect(-1, x, y + subHeight, subWidth, subHeight, 0, 0)); // NW
+        nodes[1] = new QuadTree(level + 1, new Rect(-1, x + subWidth, y + subHeight, subWidth, subHeight, 0, 0)); // NE
+        nodes[2] = new QuadTree(level + 1, new Rect(-1, x, y, subWidth, subHeight, 0, 0)); // SW
+        nodes[3] = new QuadTree(level + 1, new Rect(-1, x + subWidth, y, subWidth, subHeight, 0, 0)); // SE
     }
     
     int GetIndex(Rect *rect)
