@@ -43,6 +43,9 @@ public:
     QuadTree(int level, Rect *bounds)
     {
         //+++ Initialize the QuadTree here
+        this->level = level;
+        this->bounds = bounds;
+        nodes = std::vector<QuadTree *>(4, nullptr); // Four null child nodes
     }
 
     ~QuadTree()
