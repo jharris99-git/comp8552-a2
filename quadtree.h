@@ -63,7 +63,7 @@ public:
     {
         //+++ Clear the objects and nodes
         /**
-        * Clear squares from objects vector.
+        * Clear Rects from objects vector.
         * 
         * Recursively clear each sub-quadtree until no more remaining.
         */
@@ -83,6 +83,9 @@ public:
     {
         //+++ This code has to be written to insert a new Rect object into the tree
         /**
+        * If there are no subtrees, the length of objects is lower than the max length,
+        * and the current level of the tree is below the max level, split the current tree.
+        * 
         * If a Rect exists in a quadrant, is not straddling quadrants,
         * and there are deeper quadtrees, call insert for the Rect inside the
         * deeper quadtree
@@ -110,7 +113,7 @@ public:
         /**
         * Retrieve objects in the same quadtree.
         * If straddling, do not go deeper, push id to back of list of
-        * rectangles in same quadrant.
+        * close by rectangles.
         */
         int index = GetIndex(rect);
         if (index != -1 && nodes[0] != nullptr) // Reducing the threshold for straddling in GetIndex means less -1 indices, resulting in faster checking
@@ -170,6 +173,8 @@ private:
         * Changed quadrant index calculation.
         * After visual inspection of collisions, it has a similar
         * success rate, while executing up to 80% faster.
+        * 
+        * This is likely due to deeper or more granular subtree regions.
         */
         bool inLeft = (rect->x + (rect->width * 0.5) < horizontalMidpoint);
         bool inRight = (rect->x + (rect->width * 0.5) >= horizontalMidpoint);
@@ -548,7 +553,7 @@ private:
     {
         ////+++  Implement this function to test if rectangles r1 and r2 have collided
         /**
-        * Check intersection of all 4 edges of each rectangle. 
+        * Check the intersection of all 4 edges of each rectangle. 
         * 
         * IF
         * R1 Left Edge overlaps R2 Right Edge AND
